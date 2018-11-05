@@ -4,34 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <title>管理页面</title>
-
+  <link rel="stylesheet" href="./css/default.css">
 </head>
 
 <body>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    #yyy {
-      padding: 50px 80px;
-      border-radius: 20px;
-      border: 2px dashed #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 200px;
-      flex-direction: column;
-    }
-  </style>
-  <div id="yyy">
-    <span id="xxx">点击或拖曳文件</span>
-    <p>文件大小不能超过 40MB </p>
+  <div class="page">
+    <aside>
+      <div class="newSong">
+        新建歌曲
+      </div>
+      <ul class="songList">
+        <li>歌曲111</li>
+        <li>歌曲222</li>
+        <li class = "active">歌曲113</li>
+        <li>歌曲114</li>
+        <li>歌曲115</li>
+        <li>歌曲116</li>
+        <li>歌曲117</li>
+        <li>歌曲118</li>
+        <li>歌曲119</li>
+      </ul>
+      <div class="uploadArea">
+          <div id="uploadContainer" class="draggable">
+            <div id ="uploadButton" class="clickable">
+              <p>点击或拖曳文件</p>
+              <p>文件大小不能超过 40MB </p>
+            </div>
+          </div>
+      </div>
+    </aside>
+    <main>
+      <form class="form">
+        <div class="row">
+          <label>
+            歌名
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            歌手
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            外链
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <button type="button">保存</button>
+        </div>
+      </form>
+    </main>
   </div>
+
+
   <div id="uploadStatus"></div>
-  <audio controls src="http://p3ysl7tz6.bkt.clouddn.com/%E6%9D%8E%E4%B8%8A%E5%AE%89%20-%20%E5%A4%9C%E9%95%BF%E6%A2%A6%E5%A4%9A.mp3"></audio>
   <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
   <script>
     var APP_ID = 'KOi8a7LVf2KuViQRUxhfRpnd-gzGzoHsz';
@@ -47,7 +77,7 @@
   <script>
     var uploader = Qiniu.uploader({
       runtimes: 'html5',    //上传模式,依次退化
-      browse_button: 'xxx',       //上传选择的点选按钮，**必需**
+      browse_button:'uploadButton',       //上传选择的点选按钮，**必需**
       uptoken_url: 'http://localhost:8888/uptoken',
       // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
       // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
@@ -56,7 +86,7 @@
       get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
       max_file_size: '40mb',           //最大文件体积限制
       dragdrop: true,                   //开启可拖曳上传
-      drop_element: 'yyy',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+      drop_element: 'uploadContainer',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
       auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
       init: {
         'FilesAdded': function (up, files) {
